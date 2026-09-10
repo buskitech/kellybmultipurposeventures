@@ -506,17 +506,21 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }
 
-        // Message: 5–1000 chars, not blank
-        if (validationPassed && msgInput) {
-          if (msgInput.value.length < 5 || msgInput.value.length > 1000) {
-            msgInput.setCustomValidity("Please enter a message between 5 and 1000 characters.");
-            msgInput.reportValidity();
-            validationPassed = false;
-          } else {
-            msgInput.setCustomValidity("");
-          }
-        }
+       // Message: 5–1000 characters, not blank
+if (validationPassed && msgInput) {
+  const message = msgInput.value.trim();
 
+  if (message.length < 5 || message.length > 1000) {
+    msgInput.setCustomValidity(
+      "Please enter a message between 5 and 1000 characters."
+    );
+    msgInput.reportValidity();
+    validationPassed = false;
+  } else {
+    msgInput.setCustomValidity("");
+    msgInput.value = message;
+  }
+}
         if (!validationPassed) return;
         // ── End validation ───────────────────────
 
