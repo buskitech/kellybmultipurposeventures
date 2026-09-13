@@ -351,246 +351,331 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ── 10. Contact Form - Web3Forms ───────────────────────── */
-  const contactForm =
-    document.getElementById("contact-form");
+  /* ── 10. Google Maps Iframe Fallback ────────────────────── */
+  const mapIframe = document.getElementById('contact-map-iframe');
+  const mapFallback = document.getElementById('contact-map-fallback');
 
-  const contactPopup =
-    document.getElementById("contact-success-popup");
+  if (mapIframe && mapFallback) {
+    // Detect if iframe fails to load (e.g. file:// protocol, CSP block)
+    const showMapFallback = () => {
+      mapFallback.classList.add('visible');
+      mapFallback.removeAttribute('aria-hidden');
+      mapIframe.style.display = 'none';
+    };
 
-  const contactPopupClose =
-    document.getElementById("contact-popup-close");
+    mapIframe.addEventListener('error', showMapFallback);
 
-  const contactPopupOk =
-    document.getElementById("contact-popup-ok");
+    // Also detect file:// protocol where iframes are always blocked
+    if (window.location.protocol === 'file:') {
+      showMapFallback();
+    } else {
+      // Short timeout fallback — if iframe doesn't load within 5s, show fallback
+      const mapTimeout = setTimeout(() => {
+        try {
+          // If iframe loaded successfully this will not throw
+          const doc = mapIframe.contentDocument || mapIframe.contentWindow?.document;
+          if (!doc || doc.readyState !== 'complete') {
+            showMapFallback();
+          }
+        } catch (e) {
+          // Cross-origin access denied = iframe is loading fine (normal for Google Maps)
+          // Do nothing — this is expected
+        }
+      }, 5000);
+
+      mapIframe.addEventListener('load', () => {
+        clearTimeout(mapTimeout);
+      });
+    }
+  }
+
+  /* ── 11. Contact Form - Web3Forms ───────────────────────── */
+
+  const contactForm = document.getElementById("contact-form");
+  const contactPopup = document.getElementById("contact-success-popup");
+  const contactPopupClose = document.getElementById("contact-popup-close");
+  const contactPopupOk = document.getElementById("contact-popup-ok");
 
   function openContactPopup() {
-
     if (!contactPopup) return;
-
     contactPopup.classList.add("is-visible");
     contactPopup.setAttribute("aria-hidden", "false");
     document.body.classList.add("contact-popup-open");
-
   }
 
   function closeContactPopup() {
-
     if (!contactPopup) return;
-
     contactPopup.classList.remove("is-visible");
     contactPopup.setAttribute("aria-hidden", "true");
     document.body.classList.remove("contact-popup-open");
-
   }
 
-  if (contactPopupClose) {
-    contactPopupClose.addEventListener(
-      "click",
-      closeContactPopup
-    );
-  }
-
-  if (contactPopupOk) {
-    contactPopupOk.addEventListener(
-      "click",
-      closeContactPopup
-    );
-  }
+  if (contactPopupClose) contactPopupClose.addEventListener("click", closeContactPopup);
+  if (contactPopupOk) contactPopupOk.addEventListener("click", closeContactPopup);
 
   if (contactPopup) {
-
-    const popupOverlay =
-      contactPopup.querySelector(
-        ".contact-popup__overlay"
-      );
-
-    if (popupOverlay) {
-      popupOverlay.addEventListener(
-        "click",
-        closeContactPopup
-      );
-    }
+    const popupOverlay = contactPopup.querySelector(".contact-popup__overlay");
+    if (popupOverlay) popupOverlay.addEventListener("click", closeContactPopup);
   }
 
   document.addEventListener("keydown", function (event) {
-
-    if (
-      event.key === "Escape" &&
-      contactPopup?.classList.contains("is-visible")
-    ) {
+    if (event.key === "Escape" && contactPopup?.classList.contains("is-visible")) {
       closeContactPopup();
     }
-
   });
 
   if (contactForm) {
 
-    // Guard against double-submission
+    // ── Inline error helpers ─────────────────────────────────
+    const VALID_SUBJECTS = [
+      "General Inquiries", "Technical Inquiries",
+      "Press Inquiries", "Job application", "Become a supplier"
+    ];
+
+    /**
+     * Show an inline error under a field.
+     * Adds the .is-invalid class to the input and shows the error span.
+     */
+    function setFieldError(input, errorId, message) {
+      if (input) input.classList.add("is-invalid");
+      const errorEl = document.getElementById(errorId);
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.add("visible");
+      }
+    }
+
+    /**
+     * Clear the inline error for a field.
+     */
+    function clearFieldError(input, errorId) {
+      if (input) input.classList.remove("is-invalid");
+      const errorEl = document.getElementById(errorId);
+      if (errorEl) {
+        errorEl.textContent = "";
+        errorEl.classList.remove("visible");
+      }
+    }
+
+    /**
+     * Clear ALL inline errors and invalid states on the form.
+     * Called at the start of every submission attempt so nothing is "stuck".
+     */
+    function clearAllErrors() {
+      contactForm.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+      contactForm.querySelectorAll(".form-error").forEach(el => {
+        el.textContent = "";
+        el.classList.remove("visible");
+      });
+      // Also clear any stale native validity state
+      contactForm.querySelectorAll("input, select, textarea").forEach(el => {
+        el.setCustomValidity("");
+      });
+    }
+
+    // ── Security: sanitize a string against XSS ─────────────
+    function sanitize(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#x27;");
+    }
+
+    // ── Per-field validation functions ───────────────────────
+    function validateName(input) {
+      const val = input.value.trim();
+      if (!val) {
+        setFieldError(input, "name-error", "Full name is required.");
+        return false;
+      }
+      if (val.length < 2 || val.length > 80) {
+        setFieldError(input, "name-error", "Name must be between 2 and 80 characters.");
+        return false;
+      }
+      // Allow letters, spaces, hyphens, apostrophes, periods, numbers (e.g. John 3rd)
+      if (!/^[\w\s'\.\-]{2,80}$/i.test(val)) {
+        setFieldError(input, "name-error", "Name contains invalid characters.");
+        return false;
+      }
+      clearFieldError(input, "name-error");
+      return true;
+    }
+
+    function validateEmail(input) {
+      const val = input.value.trim();
+      if (!val) {
+        setFieldError(input, "email-error", "Email address is required.");
+        return false;
+      }
+      if (val.length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val)) {
+        setFieldError(input, "email-error", "Please enter a valid email address (e.g. name@example.com).");
+        return false;
+      }
+      clearFieldError(input, "email-error");
+      return true;
+    }
+
+    function validatePhone(input) {
+      // Auto-sanitize: strip any characters that aren't digits, +, spaces, -, ()
+      input.value = input.value.replace(/[^0-9+\s\-()]/g, "").trim();
+      const val = input.value;
+      if (!val) {
+        setFieldError(input, "phone-error", "Phone number is required.");
+        return false;
+      }
+      if (!/^[0-9+\s\-()]{7,20}$/.test(val)) {
+        setFieldError(input, "phone-error", "Enter a valid phone number (7–20 digits, e.g. +234 808 556 1258).");
+        return false;
+      }
+      clearFieldError(input, "phone-error");
+      return true;
+    }
+
+    function validateSubject(input) {
+      if (!VALID_SUBJECTS.includes(input.value)) {
+        setFieldError(input, "subject-error", "Please select a subject from the list.");
+        return false;
+      }
+      clearFieldError(input, "subject-error");
+      return true;
+    }
+
+    function validateMessage(input) {
+      const val = input.value.trim();
+      if (!val) {
+        setFieldError(input, "message-error", "Please enter your message.");
+        return false;
+      }
+      if (val.length > 1000) {
+        setFieldError(input, "message-error", "Message must not exceed 1000 characters.");
+        return false;
+      }
+      clearFieldError(input, "message-error");
+      return true;
+    }
+
+    const msgInput = contactForm.querySelector('[name="message"]');
+
+    // ── Blur validation (validate field when user leaves it) ──
+    const nameInput   = contactForm.querySelector('[name="name"]');
+    const emailInput  = contactForm.querySelector('[name="email"]');
+    const phoneInput  = contactForm.querySelector('[name="phone"]');
+    const subjectInput = contactForm.querySelector('[name="subject"]');
+
+    if (nameInput) {
+      nameInput.addEventListener("blur", () => validateName(nameInput));
+      nameInput.addEventListener("input", () => clearFieldError(nameInput, "name-error"));
+    }
+    if (emailInput) {
+      emailInput.addEventListener("blur", () => validateEmail(emailInput));
+      emailInput.addEventListener("input", () => clearFieldError(emailInput, "email-error"));
+    }
+    if (phoneInput) {
+      phoneInput.addEventListener("blur", () => validatePhone(phoneInput));
+      phoneInput.addEventListener("input", () => clearFieldError(phoneInput, "phone-error"));
+    }
+    if (subjectInput) {
+      subjectInput.addEventListener("change", () => validateSubject(subjectInput));
+    }
+    if (msgInput) {
+      msgInput.addEventListener("blur", () => validateMessage(msgInput));
+      msgInput.addEventListener("input", () => clearFieldError(msgInput, "message-error"));
+    }
+
+    // ── Submission handler ───────────────────────────────────
     let isSubmitting = false;
 
-    contactForm.addEventListener(
-      "submit",
-      async function (event) {
+    contactForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
 
-        event.preventDefault();
+      if (isSubmitting) return;
 
-        if (isSubmitting) return;
+      // ALWAYS clear all errors first — prevents "stuck" errors from prior attempts
+      clearAllErrors();
 
-        // ── JS-side validation ───────────────────
-        const nameInput = contactForm.querySelector('[name="name"]');
-        const emailInput = contactForm.querySelector('[name="email"]');
-        const phoneInput = contactForm.querySelector('[name="phone"]');
-        const subjectInput = contactForm.querySelector('[name="subject"]');
-        const msgInput = contactForm.querySelector('[name="message"]');
+      // Trim text fields before validating
+      if (nameInput)  nameInput.value  = nameInput.value.trim();
+      if (emailInput) emailInput.value = emailInput.value.trim();
+      if (msgInput)   msgInput.value   = msgInput.value.trim();
 
-        // Trim whitespace from text fields
-        if (nameInput) nameInput.value = nameInput.value.trim();
-        if (emailInput) emailInput.value = emailInput.value.trim();
-        if (phoneInput) phoneInput.value = phoneInput.value.trim();
-        if (msgInput) msgInput.value = msgInput.value.trim();
+      // Run ALL validators and collect results — show all errors at once
+      const results = [
+        nameInput    ? validateName(nameInput)       : true,
+        emailInput   ? validateEmail(emailInput)     : true,
+        phoneInput   ? validatePhone(phoneInput)     : true,
+        subjectInput ? validateSubject(subjectInput) : true,
+        msgInput     ? validateMessage(msgInput)     : true,
+      ];
 
-        const validSubjectValues = [
-          "General Inquiries",
-          "Technical Inquiries",
-          "Press Inquiries",
-          "Job application",
-          "Become a supplier"
-        ];
-
-        let validationPassed = true;
-
-        // Name: 2–80 characters, letters/spaces/hyphens/apostrophes
-        if (!nameInput || !/^[A-Za-z\s'\.\-]{2,80}$/.test(nameInput.value)) {
-          nameInput?.setCustomValidity("Please enter a valid full name (2–80 characters, letters only).");
-          nameInput?.reportValidity();
-          validationPassed = false;
-        } else {
-          nameInput.setCustomValidity("");
+      if (results.includes(false)) {
+        // Scroll to the first errored field and focus it
+        const firstError = contactForm.querySelector(".is-invalid");
+        if (firstError) {
+          firstError.scrollIntoView({ behavior: "smooth", block: "center" });
+          firstError.focus();
         }
-
-        // Email format
-        if (validationPassed && emailInput) {
-          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-          if (!emailRegex.test(emailInput.value) || emailInput.value.length > 100) {
-            emailInput.setCustomValidity("Please enter a valid email address.");
-            emailInput.reportValidity();
-            validationPassed = false;
-          } else {
-            emailInput.setCustomValidity("");
-          }
-        }
-
-        // Phone: 7–20 digits/spaces/+/hyphens/parens
-        if (validationPassed && phoneInput) {
-          const phoneRegex = /^[0-9+\s\-()]{7,20}$/;
-          // Sanitize: strip any non-allowed chars first
-          phoneInput.value = phoneInput.value.replace(/[^0-9+\s\-()]/g, "");
-          if (!phoneRegex.test(phoneInput.value)) {
-            phoneInput.setCustomValidity("Please enter a valid phone number (digits, spaces, +, - and () only).");
-            phoneInput.reportValidity();
-            validationPassed = false;
-          } else {
-            phoneInput.setCustomValidity("");
-          }
-        }
-
-        // Subject: must be one of the known options
-        if (validationPassed && subjectInput) {
-          if (!validSubjectValues.includes(subjectInput.value)) {
-            subjectInput.setCustomValidity("Please select a valid subject.");
-            subjectInput.reportValidity();
-            validationPassed = false;
-          } else {
-            subjectInput.setCustomValidity("");
-          }
-        }
-
-       // Message: 5–1000 characters, not blank
-if (validationPassed && msgInput) {
-  const message = msgInput.value.trim();
-
-  if (message.length < 5 || message.length > 1000) {
-    msgInput.setCustomValidity(
-      "Please enter a message between 5 and 1000 characters."
-    );
-    msgInput.reportValidity();
-    validationPassed = false;
-  } else {
-    msgInput.setCustomValidity("");
-    msgInput.value = message;
-  }
-}
-        if (!validationPassed) return;
-        // ── End validation ───────────────────────
-
-        const submitButton =
-          contactForm.querySelector(
-            'button[type="submit"]'
-          );
-
-        if (!submitButton) return;
-
-        const originalButtonText =
-          submitButton.textContent;
-
-        isSubmitting = true;
-        submitButton.disabled = true;
-        submitButton.textContent = "Sending...";
-
-        try {
-
-          const formData =
-            new FormData(contactForm);
-
-          const response =
-            await fetch(
-              "https://api.web3forms.com/submit",
-              {
-                method: "POST",
-                body: formData
-              }
-            );
-
-          const result =
-            await response.json();
-
-          if (result.success) {
-
-            contactForm.reset();
-            openContactPopup();
-
-          } else {
-
-            throw new Error(
-              result.message ||
-              "Unable to send your message."
-            );
-          }
-
-        } catch (error) {
-
-          console.error(
-            "Contact form error:",
-            error
-          );
-
-          alert(
-            "We could not send your message right now. Please try again or contact us directly by email."
-          );
-
-        } finally {
-
-          isSubmitting = false;
-          submitButton.disabled = false;
-          submitButton.textContent =
-            originalButtonText;
-        }
+        return;
       }
-    );
+
+      // ── All valid — submit to Web3Forms ─────────────────────
+      const submitBtn = document.getElementById("contact-submit-btn");
+      if (!submitBtn) return;
+
+      const originalBtnText = submitBtn.textContent;
+      isSubmitting = true;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending…";
+      submitBtn.setAttribute("aria-busy", "true");
+
+      try {
+        const formData = new FormData(contactForm);
+
+        // Sanitize text values before sending
+        ["name", "email", "phone", "message"].forEach(field => {
+          const raw = formData.get(field);
+          if (raw) formData.set(field, sanitize(raw));
+        });
+
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          contactForm.reset();
+          openContactPopup();
+        } else {
+          throw new Error(result.message || "Submission rejected by server.");
+        }
+
+      } catch (error) {
+        console.error("Contact form error:", error);
+
+        // Show a non-blocking inline error instead of alert()
+        const submitArea = submitBtn.parentElement;
+        let networkErr = submitArea.querySelector(".form-network-error");
+        if (!networkErr) {
+          networkErr = document.createElement("p");
+          networkErr.className = "form-network-error";
+          submitArea.insertBefore(networkErr, submitBtn);
+        }
+        networkErr.textContent =
+          "Could not send your message right now. Please try again or email us directly at info@kellybmultipurposeventures.com.";
+
+      } finally {
+        isSubmitting = false;
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+        submitBtn.removeAttribute("aria-busy");
+      }
+    });
   }
 
-  /* ── 11. Project Gallery Modal System ───────────────────── */
+
   const projectModal =
     document.getElementById('project-modal');
 

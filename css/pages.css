@@ -532,11 +532,68 @@
 }
 
 .contact-map-section {
-  height: 400px;
+  height: 420px;
   width: 100%;
   position: relative;
   overflow: hidden;
+  background-color: var(--color-gray-100);
 }
+
+.contact-map-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.contact-map-wrapper iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Fallback shown when iframe is blocked (file:// etc.) */
+.contact-map-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+  color: var(--color-white);
+  text-align: center;
+  /* Hidden by default — shown via JS if iframe fails */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.contact-map-fallback.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.contact-map-fallback__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-8);
+}
+
+.contact-map-fallback__inner svg {
+  color: var(--color-secondary);
+  width: 56px;
+  height: 56px;
+}
+
+.contact-map-fallback__inner p {
+  color: var(--color-gray-200);
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  margin-bottom: 0;
+}
+
 
 /* ── Contact Section Media Queries for All Screen Sizes ── */
 @media (max-width: 992px) {

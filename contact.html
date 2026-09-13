@@ -123,35 +123,41 @@
                     <!-- Contact Form (Web3Forms Integration) -->
                     <div class="contact-form-card reveal-right">
                         <h3>Send a Message</h3>
-                        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
                             <input type="hidden" name="access_key" value="46b5b80c-cccc-41e8-a39c-a1d9beb6ce23">
                             <input type="hidden" name="from_name" value="Kelly B Multipurpose Ventures">
-                            <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+                            <!-- Honeypot anti-spam — must stay hidden -->
+                            <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off">
 
                             <div class="contact-form-row">
                                 <div class="form-group">
-                                    <label class="form-label" for="name">Full Name</label>
+                                    <label class="form-label" for="name">Full Name <span class="form-required" aria-hidden="true">*</span></label>
                                     <input type="text" id="name" name="name" class="form-control" placeholder="John Doe"
-                                        maxlength="80" pattern="^[A-Za-z\s'\.\-]{2,80}$" required
-                                        title="Please enter a valid full name">
+                                        maxlength="80" autocomplete="name"
+                                        aria-describedby="name-error" aria-required="true">
+                                    <span class="form-error" id="name-error" role="alert" aria-live="polite"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="email">Email Address</label>
+                                    <label class="form-label" for="email">Email Address <span class="form-required" aria-hidden="true">*</span></label>
                                     <input type="email" id="email" name="email" class="form-control"
-                                        placeholder="name@example.com" maxlength="100" required>
+                                        placeholder="name@example.com" maxlength="100" autocomplete="email"
+                                        aria-describedby="email-error" aria-required="true">
+                                    <span class="form-error" id="email-error" role="alert" aria-live="polite"></span>
                                 </div>
                             </div>
 
                             <div class="contact-form-row">
                                 <div class="form-group">
-                                    <label class="form-label" for="phone">Phone Number</label>
+                                    <label class="form-label" for="phone">Phone Number <span class="form-required" aria-hidden="true">*</span></label>
                                     <input type="tel" id="phone" name="phone" class="form-control"
-                                        placeholder="+234 808 556 1258" maxlength="20" pattern="^[0-9+\s\-()]{7,20}$"
-                                        required title="Please enter a valid phone number (digits only)">
+                                        placeholder="+234 808 556 1258" maxlength="20" autocomplete="tel"
+                                        aria-describedby="phone-error" aria-required="true">
+                                    <span class="form-error" id="phone-error" role="alert" aria-live="polite"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="subject">Subject</label>
-                                    <select id="subject" name="subject" class="form-control" required>
+                                    <label class="form-label" for="subject">Subject <span class="form-required" aria-hidden="true">*</span></label>
+                                    <select id="subject" name="subject" class="form-control"
+                                        aria-describedby="subject-error" aria-required="true">
                                         <option value="" disabled selected>Select a subject</option>
                                         <option value="General Inquiries">General Inquiries</option>
                                         <option value="Technical Inquiries">Technical Inquiries</option>
@@ -159,15 +165,20 @@
                                         <option value="Job application">Job application</option>
                                         <option value="Become a supplier">Become a supplier</option>
                                     </select>
+                                    <span class="form-error" id="subject-error" role="alert" aria-live="polite"></span>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" for="message">Message</label>
+                                <label class="form-label" for="message">Message <span class="form-required" aria-hidden="true">*</span></label>
                                 <textarea id="message" name="message" class="form-control" maxlength="1000"
-                                    placeholder="Describe your project requirements or inquiry..." required></textarea>
+                                    placeholder="Describe your project requirements or inquiry..."
+                                    aria-describedby="message-error" aria-required="true"></textarea>
+                                <div class="form-field-footer">
+                                    <span class="form-error" id="message-error" role="alert" aria-live="polite"></span>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn--primary btn--lg"
+                            <button type="submit" id="contact-submit-btn" class="btn btn--primary btn--lg"
                                 style="width: 100%; margin-top: var(--space-2);">Submit Inquiry</button>
                         </form>
                     </div>
@@ -178,11 +189,28 @@
 
         <!-- Map Section -->
         <section class="contact-map-section">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1982.710045363243!2d5.624526098933019!3d6.3395990182168855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1040d374a369c3db%3A0x3dd7bb5dcb6c079c!2s8%20Nevis%20St%2C%20Avbiama%2C%20Benin%20City%20300241%2C%20Edo!5e0!3m2!1sen!2sng!4v1785993476205!5m2!1sen!2sng"
-                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-                title="Google Maps Location">
-            </iframe>
+            <div class="contact-map-wrapper">
+                <iframe
+                    id="contact-map-iframe"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1982.710045363243!2d5.624526098933019!3d6.3395990182168855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1040d374a369c3db%3A0x3dd7bb5dcb6c079c!2s8%20Nevis%20St%2C%20Avbiama%2C%20Benin%20City%20300241%2C%20Edo!5e0!3m2!1sen!2sng!4v1785993476205!5m2!1sen!2sng"
+                    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                    title="Google Maps Location">
+                </iframe>
+                <!-- Fallback: shown when iframe cannot load (e.g. file:// or blocked) -->
+                <div class="contact-map-fallback" id="contact-map-fallback" aria-hidden="true">
+                    <div class="contact-map-fallback__inner">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                        <p>8 Nevis Street, Off Mission Road<br>Benin City, Edo State, Nigeria</p>
+                        <a href="https://www.google.com/maps/place/8+Nevis+St,+Avbiama,+Benin+City+300241,+Edo/@6.339599,5.624526,17z"
+                            target="_blank" rel="noopener noreferrer" class="btn btn--primary">
+                            View on Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
