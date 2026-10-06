@@ -4,14 +4,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ========================================
-  // Disable Right-Click
-  // ========================================
-  document.addEventListener("contextmenu", function (event) {
-    event.preventDefault();
-    return false;
-  });
-
   /* ── 1. Navigation & Mobile Menu ───────────────────────── */
   const header = document.querySelector('.header');
   const navToggle = document.querySelector('.nav__toggle');
@@ -33,9 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mobile Menu Toggle
   if (navToggle && navMenu) {
     navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('active');
+      const isExpanded = navToggle.classList.toggle('active');
       navMenu.classList.toggle('active');
       body.classList.toggle('menu-open');
+      navToggle.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
     });
 
     // Close menu when clicking a link
@@ -46,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         navToggle.classList.remove('active');
         navMenu.classList.remove('active');
         body.classList.remove('menu-open');
+        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
   }
@@ -458,9 +452,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const msgInput = contactForm.querySelector('[name="message"]');
 
     // ── Blur validation (validate field when user leaves it) ──
-    const nameInput   = contactForm.querySelector('[name="name"]');
-    const emailInput  = contactForm.querySelector('[name="email"]');
-    const phoneInput  = contactForm.querySelector('[name="phone"]');
+    const nameInput = contactForm.querySelector('[name="name"]');
+    const emailInput = contactForm.querySelector('[name="email"]');
+    const phoneInput = contactForm.querySelector('[name="phone"]');
     const subjectInput = contactForm.querySelector('[name="subject"]');
 
     if (nameInput) {
@@ -495,17 +489,17 @@ document.addEventListener('DOMContentLoaded', () => {
       clearAllErrors();
 
       // Trim text fields before validating
-      if (nameInput)  nameInput.value  = nameInput.value.trim();
+      if (nameInput) nameInput.value = nameInput.value.trim();
       if (emailInput) emailInput.value = emailInput.value.trim();
-      if (msgInput)   msgInput.value   = msgInput.value.trim();
+      if (msgInput) msgInput.value = msgInput.value.trim();
 
       // Run ALL validators and collect results — show all errors at once
       const results = [
-        nameInput    ? validateName(nameInput)       : true,
-        emailInput   ? validateEmail(emailInput)     : true,
-        phoneInput   ? validatePhone(phoneInput)     : true,
+        nameInput ? validateName(nameInput) : true,
+        emailInput ? validateEmail(emailInput) : true,
+        phoneInput ? validatePhone(phoneInput) : true,
         subjectInput ? validateSubject(subjectInput) : true,
-        msgInput     ? validateMessage(msgInput)     : true,
+        msgInput ? validateMessage(msgInput) : true,
       ];
 
       if (results.includes(false)) {
@@ -588,12 +582,21 @@ document.addEventListener('DOMContentLoaded', () => {
     projectModal &&
     projectGalleryBtns.length > 0
   ) {
+    let lastActiveTrigger = null;
 
     projectGalleryBtns.forEach(btn => {
+      // Enable keyboard activation (Enter & Space) for accessible project cards
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          btn.click();
+        }
+      });
 
       btn.addEventListener('click', (e) => {
 
         e.preventDefault();
+        lastActiveTrigger = btn;
 
         const title =
           btn.querySelector(
@@ -774,6 +777,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       projectModal.classList.remove('active');
       document.body.style.overflow = '';
+
+      if (lastActiveTrigger && typeof lastActiveTrigger.focus === 'function') {
+        lastActiveTrigger.focus();
+        lastActiveTrigger = null;
+      }
 
     };
 

@@ -4,10 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects Portfolio | Kelly B Multipurpose Ventures</title>
+    <title>Civil Engineering &amp; Construction Projects | Kelly B Ventures Nigeria</title>
     <meta name="description"
-        content="View the extensive portfolio of infrastructure and building projects completed by Kelly B Multipurpose Ventures.">
+        content="Explore verified civil engineering, road networks, school reconstructions, and building projects completed across Nigeria by Kelly B Multipurpose Ventures.">
+    <link rel="canonical" href="https://kellybmultipurposeventures.com/projects.html">
 
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Civil Engineering &amp; Construction Projects | Kelly B Ventures Nigeria">
+    <meta property="og:description"
+        content="Explore verified civil engineering, road networks, school reconstructions, and building projects completed across Nigeria by Kelly B Multipurpose Ventures.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kellybmultipurposeventures.com/projects.html">
+    <meta property="og:image" content="https://kellybmultipurposeventures.com/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Kelly B Multipurpose Ventures Projects Portfolio">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Civil Engineering &amp; Construction Projects | Kelly B Ventures Nigeria">
+    <meta name="twitter:description"
+        content="Explore verified civil engineering, road networks, school reconstructions, and building projects completed across Nigeria by Kelly B Multipurpose Ventures.">
+    <meta name="twitter:image" content="https://kellybmultipurposeventures.com/assets/images/og-image.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap"
         rel="stylesheet">
@@ -21,6 +43,83 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages.css">
+
+    <!-- Structured Data (JSON-LD Breadcrumbs & CollectionPage) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://kellybmultipurposeventures.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Projects",
+              "item": "https://kellybmultipurposeventures.com/projects.html"
+            }
+          ]
+        },
+        {
+          "@type": "CollectionPage",
+          "@id": "https://kellybmultipurposeventures.com/projects.html#collection",
+          "name": "Construction & Civil Engineering Projects Portfolio",
+          "description": "Portfolio of verified civil engineering, road construction, school redevelopment, and building projects completed by Kelly B Multipurpose Ventures in Nigeria.",
+          "url": "https://kellybmultipurposeventures.com/projects.html",
+          "publisher": {
+            "@id": "https://kellybmultipurposeventures.com/#organization"
+          },
+          "mainEntity": {
+            "@type": "ItemList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Reconstruction of Oredo Girls Secondary School",
+                "description": "Reconstruction and rehabilitation of Oredo Girls Secondary School, Benin City, Edo State."
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Reconstruction of Ogu School",
+                "description": "Reconstruction and rehabilitation of educational facilities at Ogu School, Rivers State."
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Katampe Extension Residential Terrace Project",
+                "description": "Premium multi-unit residential terrace development situated in Katampe Extension, Abuja, FCT."
+              },
+              {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "Kano Urban Road Network",
+                "description": "Rehabilitation and expansion of arterial roads with high-grade asphalt in Kano State."
+              },
+              {
+                "@type": "ListItem",
+                "position": 5,
+                "name": "State General Hospital",
+                "description": "Construction of modern healthcare facilities and specialized hospital wards in Enugu State."
+              },
+              {
+                "@type": "ListItem",
+                "position": 6,
+                "name": "Port Harcourt Drainage System",
+                "description": "Deep concrete drainage channels and flood mitigation infrastructure in Port Harcourt, Rivers State."
+              }
+            ]
+          }
+        }
+      ]
+    }
+    </script>
 
     <style>
         .filter-controls {
@@ -56,14 +155,20 @@
 </head>
 
 <body>
+    <!-- Skip to Main Content for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <header class="header">
         <div class="container nav">
             <a href="index.html" class="nav__logo">
-                <img src="assets/images/logo-transparent.png" alt="Kelly B Multipurpose Ventures" class="nav__logo-img">
+                <img src="assets/images/logo-transparent.png" alt="Kelly B Multipurpose Ventures" class="nav__logo-img" width="180" height="50">
             </a>
-            <button class="nav__toggle"><span></span><span></span><span></span></button>
-            <nav class="nav__menu">
+            <button class="nav__toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="nav-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li><a href="index.html" class="nav__link">Home</a></li>
                     <li><a href="about.html" class="nav__link">About</a></li>
@@ -76,12 +181,12 @@
         </div>
     </header>
 
-    <main>
+    <main id="main-content">
         <section class="page-banner">
             <div class="page-banner__bg">
-                <img loading="lazy" decoding="async"
+                <img decoding="async" fetchpriority="high"
                     src="https://images.unsplash.com/photo-1584466977773-e625c37cdd50?q=80&w=2000&auto=format&fit=crop"
-                    alt="Projects Portfolio">
+                    alt="Kelly B Multipurpose Ventures construction and infrastructure project delivery in Nigeria">
             </div>
             <div class="container page-banner__content reveal">
                 <h1 class="page-banner__title">Our Portfolio</h1>
@@ -110,10 +215,12 @@
 
                     <!-- Project 1 -->
                     <div class="project-card reveal project-gallery-btn" data-category="school"
+                        role="button" tabindex="0" aria-haspopup="dialog"
+                        aria-label="View project details: Reconstruction of Oredo Girls Secondary School"
                         style="cursor: pointer;">
                         <div class="project-card__img-wrapper">
                             <img loading="lazy" decoding="async" src="https://iili.io/nl0N9El.jpg"
-                                alt="Reconstruction of Oredo Girls Secondary School" class="project-card__img">
+                                alt="Reconstruction of Oredo Girls Secondary School, Benin City, Edo State" class="project-card__img">
                             <div class="project-card__overlay"></div>
                         </div>
                         <div class="project-card__content">
@@ -131,11 +238,11 @@
                         <div class="project-card__details" style="display: none;">
                             <div class="project-gallery-images">
                                 <img src="https://iili.io/nl0wmQf.jpg"
-                                    alt="Reconstruction of Oredo Girls Secondary School 1">
+                                    alt="Reconstruction of Oredo Girls Secondary School - Building exterior and classroom blocks">
                                 <img src="https://iili.io/nl0wyB4.jpg"
-                                    alt="Reconstruction of Oredo Girls Secondary School 2">
+                                    alt="Reconstruction of Oredo Girls Secondary School - Structural rehabilitation and roofing works">
                                 <img src="https://iili.io/nl0wbhG.jpg"
-                                    alt="Reconstruction of Oredo Girls Secondary School 3">
+                                    alt="Reconstruction of Oredo Girls Secondary School - Completed modern educational facility">
                             </div>
                             <div class="project-gallery-desc">
                                 <p>Reconstruction and rehabilitation of Oredo Girls Secondary School, Benin City, with
@@ -148,9 +255,11 @@
 
                     <!-- Project 2 -->
                     <div class="project-card reveal project-gallery-btn" data-category="school"
+                        role="button" tabindex="0" aria-haspopup="dialog"
+                        aria-label="View project details: Reconstruction of Ogu School"
                         style="transition-delay: 0.1s; cursor: pointer;">
                         <div class="project-card__img-wrapper">
-                            <img loading="lazy" decoding="async" src="https://iili.io/nlLviS2.jpg" alt="Ogu School"
+                            <img loading="lazy" decoding="async" src="https://iili.io/nlLviS2.jpg" alt="Reconstruction of Ogu School educational facilities, Rivers State"
                                 class="project-card__img">
                             <div class="project-card__overlay"></div>
                         </div>
@@ -168,14 +277,14 @@
                         </div>
                         <div class="project-card__details" style="display: none;">
                             <div class="project-gallery-images">
-                                <img src="https://iili.io/nlLviS2.jpg" alt="Ogu School 1">
-                                <img src="https://iili.io/nlLvPcl.jpg" alt="Ogu School 2">
-                                <img src="https://iili.io/nlLvL9S.jpg" alt="Ogu School 3">
-                                <img src="https://iili.io/nlLv6F4.jpg" alt="Ogu School 4">
-                                <img src="https://iili.io/nlLvQA7.jpg" alt="Ogu School 5">
-                                <img src="https://iili.io/nlLvZN9.jpg" alt="Ogu School 6">
-                                <img src="https://iili.io/nlLvtte.jpg" alt="Ogu School 7">
-                                <img src="https://iili.io/nlLvbou.jpg" alt="Ogu School 8">
+                                <img src="https://iili.io/nlLviS2.jpg" alt="Reconstruction of Ogu School - Site view 1">
+                                <img src="https://iili.io/nlLvPcl.jpg" alt="Reconstruction of Ogu School - Site view 2">
+                                <img src="https://iili.io/nlLvL9S.jpg" alt="Reconstruction of Ogu School - Site view 3">
+                                <img src="https://iili.io/nlLv6F4.jpg" alt="Reconstruction of Ogu School - Site view 4">
+                                <img src="https://iili.io/nlLvQA7.jpg" alt="Reconstruction of Ogu School - Site view 5">
+                                <img src="https://iili.io/nlLvZN9.jpg" alt="Reconstruction of Ogu School - Site view 6">
+                                <img src="https://iili.io/nlLvtte.jpg" alt="Reconstruction of Ogu School - Site view 7">
+                                <img src="https://iili.io/nlLvbou.jpg" alt="Reconstruction of Ogu School - Site view 8">
                             </div>
                             <div class="project-gallery-desc">
                                 <p>Reconstruction and rehabilitation of educational facilities at Ogu School, providing
@@ -187,11 +296,12 @@
 
                     <!-- Project 3 -->
                     <div class="project-card reveal project-gallery-btn" data-category="buildings"
+                        role="button" tabindex="0" aria-haspopup="dialog"
+                        aria-label="View project details: Katampe Extension Residential Terrace Project"
                         style="transition-delay: 0.2s; cursor: pointer;">
                         <div class="project-card__img-wrapper">
-                            <img loading="lazy" decoding="async"
-                                src="https://iili.io/nlQYU8l.jpg"
-                                alt="Katampe Extension Residential Terrace Project" class="project-card__img">
+                            <img loading="lazy" decoding="async" src="https://iili.io/nlQYU8l.jpg"
+                                alt="Katampe Extension Residential Terrace Project in Abuja, FCT" class="project-card__img">
                             <div class="project-card__overlay"></div>
                         </div>
                         <div class="project-card__content">
@@ -208,29 +318,45 @@
                         </div>
                         <div class="project-card__details" style="display: none;">
                             <div class="project-gallery-images">
-                                <img src="https://iili.io/nlQYU8l.jpg" alt="Katampe Extension Residential Terrace Project 1">
-                                <img src="https://iili.io/nlQYMaR.jpg" alt="Katampe Extension Residential Terrace Project 2">
-                                <img src="https://iili.io/nlQYVvp.jpg" alt="Katampe Extension Residential Terrace Project 3">
-                                <img src="https://iili.io/nlQY0Ga.jpg" alt="Katampe Extension Residential Terrace Project 4">
-                                <img src="https://iili.io/nlQY7TP.jpg" alt="Katampe Extension Residential Terrace Project 5">
-                                <img src="https://iili.io/nlQYWyN.jpg" alt="Katampe Extension Residential Terrace Project 6">
-                                <img src="https://iili.io/nlQYhuI.jpg" alt="Katampe Extension Residential Terrace Project 7">
-                                <img src="https://iili.io/nlQYOnn.jpg" alt="Katampe Extension Residential Terrace Project 8">
-                                <img src="https://iili.io/nlQYk6G.jpg" alt="Katampe Extension Residential Terrace Project 9">
-                                <img src="https://iili.io/nlQYSa4.jpg" alt="Katampe Extension Residential Terrace Project 10">
+                                <img src="https://iili.io/nlQYU8l.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Architectural facade view 1">
+                                <img src="https://iili.io/nlQYMaR.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Building exterior view 2">
+                                <img src="https://iili.io/nlQYVvp.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Terrace units view 3">
+                                <img src="https://iili.io/nlQY0Ga.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Construction progress view 4">
+                                <img src="https://iili.io/nlQY7TP.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Structural framing view 5">
+                                <img src="https://iili.io/nlQYWyN.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Finishing details view 6">
+                                <img src="https://iili.io/nlQYhuI.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Side elevation view 7">
+                                <img src="https://iili.io/nlQYOnn.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Interior structure view 8">
+                                <img src="https://iili.io/nlQYk6G.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Site development view 9">
+                                <img src="https://iili.io/nlQYSa4.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Completed terrace units view 10">
                             </div>
                             <div class="project-gallery-desc">
-                                <p>Premium multi-unit residential terrace development situated in Katampe Extension, Abuja. This contemporary housing project incorporates elegant architectural design, premium finishes, sustainable building systems, and comprehensive civil infrastructure tailored for luxurious and secure urban living.</p>
+                                <p>Premium multi-unit residential terrace development situated in Katampe Extension,
+                                    Abuja. This contemporary housing project incorporates elegant architectural design,
+                                    premium finishes, sustainable building systems, and comprehensive civil
+                                    infrastructure tailored for luxurious and secure urban living.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Project 4 -->
-                    <div class="project-card reveal project-gallery-btn" data-category="roads" style="cursor: pointer;">
+                    <div class="project-card reveal project-gallery-btn" data-category="roads"
+                        role="button" tabindex="0" aria-haspopup="dialog"
+                        aria-label="View project details: Kano Urban Road Network"
+                        style="cursor: pointer;">
                         <div class="project-card__img-wrapper">
                             <img loading="lazy" decoding="async"
                                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop"
-                                alt="Road Asphalt" class="project-card__img">
+                                alt="Kano Urban Road Network highway construction and asphalt paving in Kano State" class="project-card__img">
                             <div class="project-card__overlay"></div>
                         </div>
                         <div class="project-card__content">
@@ -248,11 +374,11 @@
                         <div class="project-card__details" style="display: none;">
                             <div class="project-gallery-images">
                                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop"
-                                    alt="Road 1">
+                                    alt="Kano Urban Road Network - Asphalt roadway paving">
                                 <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Road 2">
+                                    alt="Kano Urban Road Network - Highway corridor expansion">
                                 <img src="https://images.unsplash.com/photo-1502016259367-27e1f40d2105?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Road 3">
+                                    alt="Kano Urban Road Network - Completed road infrastructure">
                             </div>
                             <div class="project-gallery-desc">
                                 <p>The Kano Urban Road Network project involved the rehabilitation and expansion of key
@@ -266,11 +392,13 @@
 
                     <!-- Project 5 -->
                     <div class="project-card reveal project-gallery-btn" data-category="buildings"
+                        role="button" tabindex="0" aria-haspopup="dialog"
+                        aria-label="View project details: State General Hospital"
                         style="transition-delay: 0.1s; cursor: pointer;">
                         <div class="project-card__img-wrapper">
                             <img loading="lazy" decoding="async"
                                 src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop"
-                                alt="Hospital" class="project-card__img">
+                                alt="State General Hospital healthcare infrastructure development in Enugu State" class="project-card__img">
                             <div class="project-card__overlay"></div>
                         </div>
                         <div class="project-card__content">
@@ -288,11 +416,11 @@
                         <div class="project-card__details" style="display: none;">
                             <div class="project-gallery-images">
                                 <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop"
-                                    alt="Hospital 1">
+                                    alt="State General Hospital - Hospital exterior and wards">
                                 <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Hospital 2">
+                                    alt="State General Hospital - Clinical building and patient facilities">
                                 <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Hospital 3">
+                                    alt="State General Hospital - Specialized medical treatment wards">
                             </div>
                             <div class="project-gallery-desc">
                                 <p>Constructed to elevate healthcare delivery in the state, this modern general hospital
@@ -305,11 +433,13 @@
 
                     <!-- Project 6 -->
                     <div class="project-card reveal project-gallery-btn" data-category="infrastructure"
+                        role="button" tabindex="0" aria-haspopup="dialog"
+                        aria-label="View project details: Port Harcourt Drainage System"
                         style="transition-delay: 0.2s; cursor: pointer;">
                         <div class="project-card__img-wrapper">
                             <img loading="lazy" decoding="async"
                                 src="https://images.unsplash.com/photo-1613490908578-8380eb9a3e61?q=80&w=2000&auto=format&fit=crop"
-                                alt="Drainage" class="project-card__img">
+                                alt="Port Harcourt Drainage System flood mitigation infrastructure in Rivers State" class="project-card__img">
                             <div class="project-card__overlay"></div>
                         </div>
                         <div class="project-card__content">
@@ -327,11 +457,11 @@
                         <div class="project-card__details" style="display: none;">
                             <div class="project-gallery-images">
                                 <img src="https://images.unsplash.com/photo-1613490908578-8380eb9a3e61?q=80&w=2000&auto=format&fit=crop"
-                                    alt="Drainage 1">
+                                    alt="Port Harcourt Drainage System - Deep concrete channel construction">
                                 <img src="https://images.unsplash.com/photo-1518173663048-b4b3e3afb328?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Drainage 2">
+                                    alt="Port Harcourt Drainage System - Excavation and reinforced culverts">
                                 <img src="https://images.unsplash.com/photo-1503923307611-396cb43cc97d?q=80&w=2070&auto=format&fit=crop"
-                                    alt="Drainage 3">
+                                    alt="Port Harcourt Drainage System - Completed stormwater runoff channel">
                             </div>
                             <div class="project-gallery-desc">
                                 <p>To combat seasonal flooding in Port Harcourt, this massive drainage project involved
@@ -362,7 +492,7 @@
                     <div class="footer__about">
                         <a href="index.html">
                             <img src="assets/images/logo-transparent.png" alt="Kelly B Multipurpose Ventures"
-                                class="footer__logo">
+                                class="footer__logo" width="200" height="56">
                         </a>
                         <p class="footer__about-text">A premium indigenous civil engineering and construction firm in
                             Nigeria, committed to delivering sustainable infrastructure and structural excellence.</p>

@@ -4,14 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelly B Multipurpose Ventures | Premium Construction & Engineering</title>
+    <title>Kelly B Multipurpose Ventures | Civil Engineering & Construction Nigeria</title>
     <meta name="description"
-        content="Kelly B Multipurpose Ventures is a leading Nigerian construction and civil engineering company delivering excellence in infrastructure, roads, and building construction.">
+        content="Kelly B Multipurpose Ventures is an indigenous civil engineering and construction company in Benin City, Edo State, Nigeria. Specialists in road construction, infrastructure, and commercial building.">
+    <link rel="canonical" href="https://kellybmultipurposeventures.com/">
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Kelly B Multipurpose Ventures | Excellence in Construction">
-    <meta property="og:description" content="Premium civil engineering and construction services across Nigeria.">
+    <meta property="og:title" content="Kelly B Multipurpose Ventures | Civil Engineering & Construction Nigeria">
+    <meta property="og:description"
+        content="Indigenous civil engineering, road construction, building development, and infrastructure delivery across Nigeria. Headquartered in Benin City, Edo State.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kellybmultipurposeventures.com/">
+    <meta property="og:image" content="https://kellybmultipurposeventures.com/assets/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Kelly B Multipurpose Ventures - Civil Engineering and Construction Nigeria">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Kelly B Multipurpose Ventures | Civil Engineering & Construction Nigeria">
+    <meta name="twitter:description"
+        content="Indigenous civil engineering, road construction, building development, and infrastructure delivery across Nigeria. Headquartered in Benin City, Edo State.">
+    <meta name="twitter:image" content="https://kellybmultipurposeventures.com/assets/images/og-image.jpg">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,8 +34,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- CSS -->
-    <!-- Favicon -->
+    <!-- CSS & Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -31,24 +44,90 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/pages.css">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": ["GeneralContractor", "LocalBusiness"],
+          "@id": "https://kellybmultipurposeventures.com/#organization",
+          "name": "Kelly B Multipurpose Ventures",
+          "url": "https://kellybmultipurposeventures.com/",
+          "logo": "https://kellybmultipurposeventures.com/assets/images/logo-transparent.png",
+          "image": "https://kellybmultipurposeventures.com/assets/images/og-image.jpg",
+          "description": "Indigenous civil engineering and construction company based in Benin City, Edo State, Nigeria. Specializing in road construction, civil engineering works, building construction, and earthworks.",
+          "telephone": ["+2348085561258", "+2348034378263"],
+          "email": "info@kellybmultipurposeventures.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "8 Nevis Street, Off Mission Road",
+            "addressLocality": "Benin City",
+            "addressRegion": "Edo State",
+            "addressCountry": "NG"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 6.339599,
+            "longitude": 5.624526
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              "opens": "08:00",
+              "closes": "17:00"
+            }
+          ],
+          "areaServed": [
+            {
+              "@type": "AdministrativeArea",
+              "name": "Benin City"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Edo State"
+            },
+            {
+              "@type": "Country",
+              "name": "Nigeria"
+            }
+          ],
+          "priceRange": "$$$"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://kellybmultipurposeventures.com/#website",
+          "url": "https://kellybmultipurposeventures.com/",
+          "name": "Kelly B Multipurpose Ventures",
+          "publisher": {
+            "@id": "https://kellybmultipurposeventures.com/#organization"
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 
 <body>
+    <!-- Skip to Main Content for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Navigation -->
     <header class="header">
         <div class="container nav">
             <a href="index.html" class="nav__logo">
-                <img src="assets/images/logo-transparent.png" alt="Kelly B Multipurpose Ventures" class="nav__logo-img">
+                <img src="assets/images/logo-transparent.png" alt="Kelly B Multipurpose Ventures" class="nav__logo-img" width="180" height="50">
             </a>
 
-            <button class="nav__toggle" aria-label="Toggle Navigation">
+            <button class="nav__toggle" aria-label="Toggle Navigation" aria-expanded="false" aria-controls="nav-menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
 
-            <nav class="nav__menu">
+            <nav class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
                     <li><a href="index.html" class="nav__link active">Home</a></li>
                     <li><a href="about.html" class="nav__link">About</a></li>
@@ -61,35 +140,38 @@
         </div>
     </header>
 
-    <main>
+    <main id="main-content">
         <!-- Hero Section -->
         <section class="hero">
             <div class="hero__bg-slider">
                 <div class="hero__slide active">
-                    <img loading="lazy" decoding="async"
+                    <img decoding="async" fetchpriority="high"
                         src="https://images.unsplash.com/photo-1785983097496-00aae163023f?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Construction Site Location">
+                        alt="Kelly B Multipurpose Ventures civil engineering construction works in Nigeria">
                 </div>
                 <div class="hero__slide">
                     <img loading="lazy" decoding="async"
                         src="https://images.unsplash.com/photo-1785983097526-c2bcc0f00ac7?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="Local Construction Site">
+                        alt="Local Construction Site Operations in Nigeria">
                 </div>
                 <div class="hero__slide">
                     <img loading="lazy" decoding="async"
                         src="https://images.unsplash.com/photo-1785982172053-7bc3a261fc71?q=80&w=2232&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                        alt="KellyB Engineer">
+                        alt="Kelly B Multipurpose Ventures Civil Engineers on Site">
                 </div>
             </div>
             <div class="hero__overlay"></div>
 
             <div class="container">
                 <div class="hero__content">
-                    <span class="hero__subtitle">Building The Future</span>
-                    <h1 class="hero__title">Engineering Excellence. <br><span>Solid Foundations.</span></h1>
-                    <p class="hero__text">Kelly B Multipurpose Ventures delivers world-class civil engineering, road
-                        infrastructure, and commercial building solutions across Nigeria.</p>
-
+                    <span class="hero__subtitle">Indigenous Civil Engineering &amp; Construction</span>
+                    <h1 class="hero__title">Engineering Excellence. <br><span>Solid Foundations Across Nigeria.</span></h1>
+                    <p class="hero__text">Kelly B Multipurpose Ventures delivers durable civil engineering, road
+                        infrastructure, and commercial building solutions headquartered in Benin City, Edo State, and serving projects nationwide.</p>
+                    <div class="hero__actions" style="margin-top: var(--space-6); display: flex; gap: var(--space-4); flex-wrap: wrap;">
+                        <a href="contact.html" class="btn btn--secondary">Request Consultation</a>
+                        <a href="projects.html" class="btn btn--outline">View Our Projects</a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -140,7 +222,7 @@
                         <h3 class="service-card__title">Road Construction</h3>
                         <p>Design, construction, and rehabilitation of highways, urban roads, and bridges engineered to
                             withstand heavy traffic and challenging weather conditions.</p>
-                        <a href="services.html" class="service-card__link">Learn More <svg
+                        <a href="services.html" class="service-card__link" aria-label="Learn more about Road Construction services">Learn More <svg
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
@@ -169,7 +251,7 @@
                         <h3 class="service-card__title">Building Construction</h3>
                         <p>Turnkey construction solutions for commercial, residential, and industrial developments,
                             delivered with a focus on quality, safety, and structural integrity.</p>
-                        <a href="services.html" class="service-card__link">Learn More <svg
+                        <a href="services.html" class="service-card__link" aria-label="Learn more about Building Construction services">Learn More <svg
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
@@ -191,7 +273,7 @@
                         <h3 class="service-card__title">Earthworks & Infrastructure</h3>
                         <p>Comprehensive site preparation, excavation, grading, and utility installation services that
                             create the foundation for successful projects.</p>
-                        <a href="services.html" class="service-card__link">Learn More <svg
+                        <a href="services.html" class="service-card__link" aria-label="Learn more about Earthworks and Infrastructure services">Learn More <svg
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
@@ -236,10 +318,10 @@
                 </div>
 
                 <div class="grid grid--3">
-                    <a href="#" class="project-card reveal project-gallery-btn">
+                    <a href="#project-modal" class="project-card reveal project-gallery-btn" role="button" aria-haspopup="dialog" aria-label="View project details: Reconstruction of Oredo Girls Secondary School">
                         <div class="project-card__img-wrapper">
                             <img loading="lazy" decoding="async" src="https://iili.io/nl0N9El.jpg"
-                                alt="Reconstruction of Oredo Girls Secondary School" class="project-card__img">
+                                alt="Reconstruction of Oredo Girls Secondary School, Benin City, Edo State" class="project-card__img">
                             <div class="project-card__overlay"></div>
                         </div>
                         <div class="project-card__content">
@@ -257,11 +339,11 @@
                         <div class="project-card__details" style="display: none;">
                             <div class="project-gallery-images">
                                 <img src="https://iili.io/nl0wmQf.jpg"
-                                    alt="Reconstruction of Oredo Girls Secondary School 1">
+                                    alt="Reconstruction of Oredo Girls Secondary School - Classroom blocks and exterior structural view">
                                 <img src="https://iili.io/nl0wyB4.jpg"
-                                    alt="Reconstruction of Oredo Girls Secondary School 2">
+                                    alt="Reconstruction of Oredo Girls Secondary School - Structural rehabilitation and roofing installation">
                                 <img src="https://iili.io/nl0wbhG.jpg"
-                                    alt="Reconstruction of Oredo Girls Secondary School 3">
+                                    alt="Reconstruction of Oredo Girls Secondary School - Completed modern educational facilities">
                             </div>
                             <div class="project-gallery-desc">
                                 <p>Reconstruction and rehabilitation of Oredo Girls Secondary School, Benin City, with
@@ -272,9 +354,9 @@
                         </div>
                     </a>
 
-                    <a href="#" class="project-card reveal project-gallery-btn" style="transition-delay: 0.1s;">
+                    <a href="#project-modal" class="project-card reveal project-gallery-btn" role="button" aria-haspopup="dialog" aria-label="View project details: Reconstruction of Ogu School" style="transition-delay: 0.1s;">
                         <div class="project-card__img-wrapper">
-                            <img loading="lazy" decoding="async" src="https://iili.io/nlLviS2.jpg" alt="Ogu School"
+                            <img loading="lazy" decoding="async" src="https://iili.io/nlLviS2.jpg" alt="Reconstruction of Ogu School educational facilities, Rivers State"
                                 class="project-card__img">
                             <div class="project-card__overlay"></div>
                         </div>
@@ -292,14 +374,14 @@
                         </div>
                         <div class="project-card__details" style="display: none;">
                             <div class="project-gallery-images">
-                                <img src="https://iili.io/nlLviS2.jpg" alt="Ogu School 1">
-                                <img src="https://iili.io/nlLvPcl.jpg" alt="Ogu School 2">
-                                <img src="https://iili.io/nlLvL9S.jpg" alt="Ogu School 3">
-                                <img src="https://iili.io/nlLv6F4.jpg" alt="Ogu School 4">
-                                <img src="https://iili.io/nlLvQA7.jpg" alt="Ogu School 5">
-                                <img src="https://iili.io/nlLvZN9.jpg" alt="Ogu School 6">
-                                <img src="https://iili.io/nlLvtte.jpg" alt="Ogu School 7">
-                                <img src="https://iili.io/nlLvbou.jpg" alt="Ogu School 8">
+                                <img src="https://iili.io/nlLviS2.jpg" alt="Reconstruction of Ogu School - Site view 1">
+                                <img src="https://iili.io/nlLvPcl.jpg" alt="Reconstruction of Ogu School - Site view 2">
+                                <img src="https://iili.io/nlLvL9S.jpg" alt="Reconstruction of Ogu School - Site view 3">
+                                <img src="https://iili.io/nlLv6F4.jpg" alt="Reconstruction of Ogu School - Site view 4">
+                                <img src="https://iili.io/nlLvQA7.jpg" alt="Reconstruction of Ogu School - Site view 5">
+                                <img src="https://iili.io/nlLvZN9.jpg" alt="Reconstruction of Ogu School - Site view 6">
+                                <img src="https://iili.io/nlLvtte.jpg" alt="Reconstruction of Ogu School - Site view 7">
+                                <img src="https://iili.io/nlLvbou.jpg" alt="Reconstruction of Ogu School - Site view 8">
                             </div>
                             <div class="project-gallery-desc">
                                 <p>Reconstruction and rehabilitation of educational facilities at Ogu School, providing
@@ -309,11 +391,10 @@
                         </div>
                     </a>
 
-                    <a href="#" class="project-card reveal project-gallery-btn" style="transition-delay: 0.2s;">
+                    <a href="#project-modal" class="project-card reveal project-gallery-btn" role="button" aria-haspopup="dialog" aria-label="View project details: Katampe Extension Residential Terrace Project" style="transition-delay: 0.2s;">
                         <div class="project-card__img-wrapper">
-                            <img loading="lazy" decoding="async"
-                                src="https://iili.io/nlQYU8l.jpg"
-                                alt="Katampe Extension Residential Terrace Project" class="project-card__img">
+                            <img loading="lazy" decoding="async" src="https://iili.io/nlQYU8l.jpg"
+                                alt="Katampe Extension Residential Terrace Project in Abuja, FCT" class="project-card__img">
                             <div class="project-card__overlay"></div>
                         </div>
                         <div class="project-card__content">
@@ -330,19 +411,32 @@
                         </div>
                         <div class="project-card__details" style="display: none;">
                             <div class="project-gallery-images">
-                                <img src="https://iili.io/nlQYU8l.jpg" alt="Katampe Extension Residential Terrace Project 1">
-                                <img src="https://iili.io/nlQYMaR.jpg" alt="Katampe Extension Residential Terrace Project 2">
-                                <img src="https://iili.io/nlQYVvp.jpg" alt="Katampe Extension Residential Terrace Project 3">
-                                <img src="https://iili.io/nlQY0Ga.jpg" alt="Katampe Extension Residential Terrace Project 4">
-                                <img src="https://iili.io/nlQY7TP.jpg" alt="Katampe Extension Residential Terrace Project 5">
-                                <img src="https://iili.io/nlQYWyN.jpg" alt="Katampe Extension Residential Terrace Project 6">
-                                <img src="https://iili.io/nlQYhuI.jpg" alt="Katampe Extension Residential Terrace Project 7">
-                                <img src="https://iili.io/nlQYOnn.jpg" alt="Katampe Extension Residential Terrace Project 8">
-                                <img src="https://iili.io/nlQYk6G.jpg" alt="Katampe Extension Residential Terrace Project 9">
-                                <img src="https://iili.io/nlQYSa4.jpg" alt="Katampe Extension Residential Terrace Project 10">
+                                <img src="https://iili.io/nlQYU8l.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Architectural facade view 1">
+                                <img src="https://iili.io/nlQYMaR.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Building exterior view 2">
+                                <img src="https://iili.io/nlQYVvp.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Terrace units view 3">
+                                <img src="https://iili.io/nlQY0Ga.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Construction progress view 4">
+                                <img src="https://iili.io/nlQY7TP.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Structural framing view 5">
+                                <img src="https://iili.io/nlQYWyN.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Finishing details view 6">
+                                <img src="https://iili.io/nlQYhuI.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Side elevation view 7">
+                                <img src="https://iili.io/nlQYOnn.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Interior structure view 8">
+                                <img src="https://iili.io/nlQYk6G.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Site development view 9">
+                                <img src="https://iili.io/nlQYSa4.jpg"
+                                    alt="Katampe Extension Residential Terrace Project - Completed terrace units view 10">
                             </div>
                             <div class="project-gallery-desc">
-                                <p>Premium multi-unit residential terrace development situated in Katampe Extension, Abuja. This contemporary housing project incorporates elegant architectural design, premium finishes, sustainable building systems, and comprehensive civil infrastructure tailored for luxurious and secure urban living.</p>
+                                <p>Premium multi-unit residential terrace development situated in Katampe Extension,
+                                    Abuja. This contemporary housing project incorporates elegant architectural design,
+                                    premium finishes, sustainable building systems, and comprehensive civil
+                                    infrastructure tailored for luxurious and secure urban living.</p>
                             </div>
                         </div>
                     </a>
@@ -372,7 +466,7 @@
                     <div class="footer__about">
                         <a href="index.html">
                             <img src="assets/images/logo-transparent.png" alt="Kelly B Multipurpose Ventures"
-                                class="footer__logo">
+                                class="footer__logo" width="200" height="56">
                         </a>
                         <p class="footer__about-text">A premium indigenous civil engineering and construction firm in
                             Nigeria, committed to delivering sustainable infrastructure and structural excellence.</p>
