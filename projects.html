@@ -137,26 +137,25 @@
             text-transform: uppercase;
             letter-spacing: var(--tracking-wider);
             padding: var(--space-3) var(--space-6);
-            border-radius: 0;
-            background-color: var(--color-gray-100);
-            color: var(--color-gray-600);
-            border: 1px solid var(--color-gray-200);
+            border-radius: var(--radius-sm);
+            background-color: var(--color-off-white);
+            color: var(--color-gray-500);
+            border: 1.5px solid var(--color-gray-200);
             cursor: pointer;
-            transition: background-color var(--duration-fast) var(--ease-out),
-                        color var(--duration-fast) var(--ease-out),
-                        border-color var(--duration-fast) var(--ease-out);
+            transition: all var(--duration-base) var(--ease-out);
         }
 
         .filter-btn:hover {
-            background-color: var(--color-gray-200);
+            background-color: var(--color-white);
             color: var(--color-primary);
-            border-color: var(--color-gray-300);
+            border-color: var(--color-secondary);
         }
 
         .filter-btn.active {
             background-color: var(--color-primary);
             color: var(--color-white);
             border-color: var(--color-primary);
+            box-shadow: var(--shadow-md);
         }
     </style>
 </head>
