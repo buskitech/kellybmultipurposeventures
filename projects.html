@@ -125,9 +125,11 @@
         .filter-controls {
             display: flex;
             justify-content: center;
-            gap: var(--space-4);
+            gap: var(--space-2);
             margin-bottom: var(--space-12);
             flex-wrap: wrap;
+            border-bottom: 2px solid var(--color-gray-200);
+            padding-bottom: 0;
         }
 
         .filter-btn {
@@ -136,20 +138,27 @@
             font-weight: var(--font-semibold);
             text-transform: uppercase;
             letter-spacing: var(--tracking-wider);
-            padding: var(--space-2) var(--space-6);
-            border-radius: var(--radius-full);
-            background-color: var(--color-off-white);
-            color: var(--color-gray-600);
-            transition: all var(--duration-fast) var(--ease-out);
+            padding: var(--space-3) var(--space-6);
+            border-radius: 0;
+            background-color: transparent;
+            color: var(--color-gray-500);
+            border: none;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            cursor: pointer;
+            transition: color var(--duration-fast) var(--ease-out),
+                        border-color var(--duration-fast) var(--ease-out);
         }
 
         .filter-btn:hover {
-            background-color: var(--color-gray-200);
+            color: var(--color-primary);
+            background-color: transparent;
         }
 
         .filter-btn.active {
-            background-color: var(--color-primary);
-            color: var(--color-white);
+            color: var(--color-primary);
+            border-bottom-color: var(--color-secondary);
+            background-color: transparent;
         }
     </style>
 </head>

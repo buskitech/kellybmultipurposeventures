@@ -288,7 +288,9 @@
 
 .hero__actions {
   display: flex;
-  gap: var(--space-4);
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  margin-top: var(--space-8);
   animation: fadeUp 1s 0.8s both;
 }
 

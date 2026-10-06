@@ -263,6 +263,23 @@ select {
   transform: translateY(-2px);
 }
 
+/* Solid gold/amber — used for primary CTA on dark hero backgrounds */
+.btn--secondary {
+  background: var(--color-secondary);
+  color: var(--color-primary-dark);
+  border: 2px solid var(--color-secondary);
+  font-weight: var(--font-bold);
+  box-shadow: 0 4px 18px rgba(233, 169, 48, 0.35);
+}
+
+.btn--secondary:hover {
+  background: var(--color-secondary-light);
+  border-color: var(--color-secondary-light);
+  color: var(--color-primary-dark);
+  box-shadow: 0 6px 28px rgba(233, 169, 48, 0.5);
+  transform: translateY(-3px);
+}
+
 .btn--outline {
   background: transparent;
   color: var(--color-white);
