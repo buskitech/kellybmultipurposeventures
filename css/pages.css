@@ -10,6 +10,36 @@
   align-items: center;
 }
 
+/* When about-grid has only one child (e.g. Who We Are on Home, Our Story on About) */
+.about-grid:has(> :only-child) {
+  display: flex;
+  justify-content: center;
+}
+
+.about-grid > :only-child {
+  grid-column: 1 / -1;
+  max-width: 860px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-content {
+  width: 100%;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 769px) {
+  .about-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .about-img-wrapper {
   position: relative;
   border-radius: var(--radius-md);
@@ -236,6 +266,7 @@
   position: relative;
   max-width: 800px;
   margin: 0 auto;
+  overflow: hidden;
 }
 
 .timeline::before {
@@ -306,7 +337,14 @@
     padding-right: 0;
   }
 
-  .timeline-dot {
+  .timeline-item:nth-child(even) {
+    margin-left: 0;
+    padding-left: 50px;
+    padding-right: 0;
+  }
+
+  .timeline-dot,
+  .timeline-item:nth-child(even) .timeline-dot {
     left: 10px;
     right: auto;
   }
@@ -954,12 +992,15 @@
     left: 14px;
   }
 
-  .timeline-item {
+  .timeline-item,
+  .timeline-item:nth-child(even) {
     padding-left: 38px;
     margin-bottom: var(--space-8);
+    margin-left: 0;
   }
 
-  .timeline-dot {
+  .timeline-dot,
+  .timeline-item:nth-child(even) .timeline-dot {
     left: 4px;
     width: 18px;
     height: 18px;
