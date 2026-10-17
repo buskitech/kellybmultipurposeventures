@@ -56,7 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => {
       const revealTop = el.getBoundingClientRect().top;
 
-      if (revealTop < windowHeight - revealPoint) {
+      if (revealTop < windowHeight - revealPoint && !el.classList.contains('revealed')) {
+        // Stagger siblings: if this element shares a parent with other reveals, delay by index
+        const parent = el.parentElement;
+        if (parent) {
+          const siblings = Array.from(parent.querySelectorAll(':scope > .reveal, :scope > .reveal-left, :scope > .reveal-right, :scope > .reveal-scale'));
+          const idx = siblings.indexOf(el);
+          if (idx > 0) {
+            el.style.setProperty('--reveal-delay', `${idx * 80}ms`);
+          }
+        }
         el.classList.add('revealed');
       }
     });
@@ -134,6 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const projectCards = document.querySelectorAll('.project-card');
 
   if (filterBtns.length > 0 && projectCards.length > 0) {
+    // Apply base transition styles for smooth filtering
+    projectCards.forEach(card => {
+      card.style.transition = 'opacity 0.3s cubic-bezier(0.33, 1, 0.68, 1), transform 0.3s cubic-bezier(0.33, 1, 0.68, 1)';
+    });
+
     filterBtns.forEach(btn => {
       btn.addEventListener('click', () => {
 
@@ -143,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const filterValue = btn.getAttribute('data-filter');
 
-        projectCards.forEach(card => {
+        projectCards.forEach((card, idx) => {
 
           if (
             filterValue === 'all' ||
@@ -151,15 +165,16 @@ document.addEventListener('DOMContentLoaded', () => {
           ) {
             card.style.display = 'block';
 
+            // Stagger visible cards for intentional timing
             setTimeout(() => {
               card.style.opacity = '1';
-              card.style.transform = 'scale(1)';
-            }, 50);
+              card.style.transform = 'scale(1) translateY(0)';
+            }, idx * 40);
 
           } else {
 
             card.style.opacity = '0';
-            card.style.transform = 'scale(0.8)';
+            card.style.transform = 'scale(0.95) translateY(8px)';
 
             setTimeout(() => {
               card.style.display = 'none';
@@ -568,7 +583,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-
   const projectModal =
     document.getElementById('project-modal');
 
@@ -578,11 +592,97 @@ document.addEventListener('DOMContentLoaded', () => {
   const projectModalClose =
     document.getElementById('project-modal-close');
 
+  const modalPrevBtn =
+    document.getElementById('modal-project-prev');
+
+  const modalNextBtn =
+    document.getElementById('modal-project-next');
+
+  const modalCounter =
+    document.getElementById('modal-project-counter');
+
+  const modalCaption =
+    document.getElementById('modal-project-caption');
+
+  const modalNavBar =
+    document.getElementById('modal-project-nav-bar');
+
+  const modalTitle =
+    document.getElementById('modal-project-title');
+
+  const modalCat =
+    document.getElementById('modal-project-category');
+
+  const modalLocation =
+    document.getElementById('modal-project-location');
+
+  const modalDesc =
+    document.getElementById('modal-project-desc');
+
+  const modalMainImg =
+    document.getElementById('modal-project-main-img');
+
+  const modalThumbnails =
+    document.getElementById('modal-project-thumbnails');
+
   if (
     projectModal &&
     projectGalleryBtns.length > 0
   ) {
     let lastActiveTrigger = null;
+    let currentImages = [];
+    let currentIndex = 0;
+
+    const showImage = (index) => {
+      if (!currentImages.length) return;
+      if (index < 0) {
+        currentIndex = currentImages.length - 1;
+      } else if (index >= currentImages.length) {
+        currentIndex = 0;
+      } else {
+        currentIndex = index;
+      }
+
+      const item = currentImages[currentIndex];
+
+      // Smooth image transition
+      if (modalMainImg) {
+        modalMainImg.style.opacity = '0';
+        setTimeout(() => {
+          modalMainImg.src = item.src;
+          modalMainImg.alt = item.alt || modalTitle?.textContent || 'Project Image';
+          modalMainImg.style.opacity = '1';
+        }, 120);
+      }
+
+      // Update counter
+      if (modalCounter) {
+        modalCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+      }
+
+      // Update caption
+      if (modalCaption) {
+        if (item.alt && item.alt.trim()) {
+          modalCaption.textContent = item.alt;
+          modalCaption.style.display = 'block';
+        } else {
+          modalCaption.style.display = 'none';
+        }
+      }
+
+      // Update active state on thumbnails and scroll into view
+      if (modalThumbnails) {
+        const thumbs = modalThumbnails.querySelectorAll('.project-modal__thumb');
+        thumbs.forEach((thumb, idx) => {
+          if (idx === currentIndex) {
+            thumb.classList.add('active');
+            thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } else {
+            thumb.classList.remove('active');
+          }
+        });
+      }
+    };
 
     projectGalleryBtns.forEach(btn => {
       // Enable keyboard activation (Enter & Space) for accessible project cards
@@ -594,7 +694,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       btn.addEventListener('click', (e) => {
-
         e.preventDefault();
         lastActiveTrigger = btn;
 
@@ -631,57 +730,30 @@ document.addEventListener('DOMContentLoaded', () => {
             '.project-gallery-images img'
           );
 
-        let images = [];
+        currentImages = [];
+        currentIndex = 0;
 
         if (galleryImages.length > 0) {
-
           galleryImages.forEach(img => {
-            images.push(img.src);
+            currentImages.push({
+              src: img.src,
+              alt: img.getAttribute('alt') || ''
+            });
           });
-
         } else {
-
-          // Fallback to main card image
-          // if no gallery images are provided
+          // Fallback to main card image if no gallery images are provided
           const mainImg =
             btn.querySelector(
               '.project-card__img'
-            )?.src;
+            );
 
           if (mainImg) {
-            images.push(mainImg);
+            currentImages.push({
+              src: mainImg.src,
+              alt: mainImg.getAttribute('alt') || ''
+            });
           }
         }
-
-        const modalTitle =
-          document.getElementById(
-            'modal-project-title'
-          );
-
-        const modalCat =
-          document.getElementById(
-            'modal-project-category'
-          );
-
-        const modalLocation =
-          document.getElementById(
-            'modal-project-location'
-          );
-
-        const modalDesc =
-          document.getElementById(
-            'modal-project-desc'
-          );
-
-        const modalMainImg =
-          document.getElementById(
-            'modal-project-main-img'
-          );
-
-        const modalThumbnails =
-          document.getElementById(
-            'modal-project-thumbnails'
-          );
 
         if (modalTitle) {
           modalTitle.textContent = title;
@@ -700,81 +772,91 @@ document.addEventListener('DOMContentLoaded', () => {
           modalDesc.innerHTML = descHtml;
         }
 
-        // Setup Gallery
-        if (
-          modalMainImg &&
-          images.length > 0
-        ) {
+        // Build Thumbnails
+        if (modalThumbnails) {
+          modalThumbnails.innerHTML = '';
 
-          modalMainImg.src = images[0];
+          if (currentImages.length > 1) {
+            currentImages.forEach((imgItem, idx) => {
+              const img =
+                document.createElement('img');
 
-          if (modalThumbnails) {
+              const thumbUrl = (imgItem.src.includes('iili.io') && !imgItem.src.includes('.th.') && !imgItem.src.includes('.md.'))
+                ? imgItem.src.replace(/\.jpg$/, '.th.jpg')
+                : imgItem.src;
+              img.src = thumbUrl;
+              img.onerror = () => { img.src = imgItem.src; };
+              img.loading = 'lazy';
+              img.decoding = 'async';
+              img.alt = imgItem.alt || `Thumbnail ${idx + 1}`;
+              img.className =
+                'project-modal__thumb' +
+                (idx === 0
+                  ? ' active'
+                  : '');
+              img.tabIndex = 0;
+              img.role = 'button';
+              img.setAttribute('aria-label', `View image ${idx + 1} of ${currentImages.length}`);
 
-            modalThumbnails.innerHTML = '';
+              img.addEventListener(
+                'click',
+                () => {
+                  showImage(idx);
+                }
+              );
 
-            if (images.length > 1) {
-
-              images.forEach((src, index) => {
-
-                const img =
-                  document.createElement('img');
-
-                img.src = src;
-
-                img.className =
-                  'project-modal__thumb' +
-                  (index === 0
-                    ? ' active'
-                    : '');
-
-                img.addEventListener(
-                  'click',
-                  () => {
-
-                    // Update main image
-                    modalMainImg.style.opacity =
-                      '0';
-
-                    setTimeout(() => {
-
-                      modalMainImg.src = src;
-                      modalMainImg.style.opacity =
-                        '1';
-
-                    }, 150);
-
-                    // Update active state
-                    document
-                      .querySelectorAll(
-                        '.project-modal__thumb'
-                      )
-                      .forEach(t =>
-                        t.classList.remove(
-                          'active'
-                        )
-                      );
-
-                    img.classList.add('active');
-
-                  }
-                );
-
-                modalThumbnails.appendChild(img);
-
+              img.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  showImage(idx);
+                }
               });
-            }
+
+              modalThumbnails.appendChild(img);
+            });
           }
         }
+
+        // Show/hide navigation bar based on multiple images
+        if (modalNavBar) {
+          modalNavBar.style.display =
+            currentImages.length > 1 ? 'flex' : 'none';
+        }
+
+        // Display first image
+        showImage(0);
 
         projectModal.classList.add('active');
         document.body.style.overflow =
           'hidden';
-
       });
     });
 
-    const closeProjectModal = () => {
+    // Previous and Next button handlers
+    if (modalPrevBtn) {
+      modalPrevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showImage(currentIndex - 1);
+      });
+    }
 
+    if (modalNextBtn) {
+      modalNextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showImage(currentIndex + 1);
+      });
+    }
+
+    // Main image click advances to next image
+    if (modalMainImg) {
+      modalMainImg.addEventListener('click', () => {
+        if (currentImages.length > 1) {
+          showImage(currentIndex + 1);
+        }
+      });
+    }
+
+    const closeProjectModal = () => {
       projectModal.classList.remove('active');
       document.body.style.overflow = '';
 
@@ -782,7 +864,6 @@ document.addEventListener('DOMContentLoaded', () => {
         lastActiveTrigger.focus();
         lastActiveTrigger = null;
       }
-
     };
 
     if (projectModalClose) {
@@ -795,25 +876,26 @@ document.addEventListener('DOMContentLoaded', () => {
     projectModal.addEventListener(
       'click',
       (e) => {
-
         if (e.target === projectModal) {
           closeProjectModal();
         }
-
       }
     );
 
     document.addEventListener(
       'keydown',
       (e) => {
+        if (!projectModal.classList.contains('active')) return;
 
-        if (
-          e.key === 'Escape' &&
-          projectModal.classList.contains('active')
-        ) {
+        if (e.key === 'Escape') {
           closeProjectModal();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          showImage(currentIndex - 1);
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          showImage(currentIndex + 1);
         }
-
       }
     );
   }
